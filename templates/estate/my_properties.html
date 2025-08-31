@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}My Properties - Real Estate Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">My Properties</h1>
+        <p class="text-muted">Properties owned by {{ user.email }}</p>
+    </div>
+</div>
+
+<div class="row">
+    {% for house in houses %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">{{ house.house_number }}</h5>
+                <small class="text-muted">{{ house.get_house_type_display }}</small>
+            </div>
+            <div class="card-body">
+                <p><strong>Apartments:</strong> {{ house.num_apartments }}</p>
+                <p><strong>Occupants:</strong> {{ house.occupants.count }}</p>
+                <p><strong>Occupancy Rate:</strong> 
+                    {% widthratio house.occupants.count house.num_apartments 100 %}%
+                </p>
+                <a href="{% url 'real_estate_app:house_detail' house.id %}" class="btn btn-primary btn-sm">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">
+            <h4>No properties found</h4>
+            <p>You don't own any properties yet. Contact an administrator to add properties to your account.</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

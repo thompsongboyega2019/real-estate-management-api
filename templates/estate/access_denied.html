@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Access Denied - Real Estate Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-danger">
+            <h4>Access Denied</h4>
+            <p>You don't have permission to access this page. This page is only available to property owners.</p>
+            <a href="{% url 'real_estate_app:home' %}" class="btn btn-primary">Go to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

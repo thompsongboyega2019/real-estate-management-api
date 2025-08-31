@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ house.house_number }} - Real Estate Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'real_estate_app:home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'real_estate_app:house_list' %}">Houses</a></li>
+                <li class="breadcrumb-item active">{{ house.house_number }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2>{{ house.house_number }}</h2>
+                <small class="text-muted">{{ house.get_house_type_display }}</small>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Owner:</strong> {{ house.owner.email }}</p>
+                        <p><strong>House Type:</strong> {{ house.get_house_type_display }}</p>
+                        <p><strong>Number of Apartments:</strong> {{ house.num_apartments }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Total Occupants:</strong> {{ occupants.count }}</p>
+                        <p><strong>Created:</strong> {{ house.created_at|date:"M d, Y" }}</p>
+                        {% if chief_tenant_assignment %}
+                        <p><strong>Chief Tenant:</strong> {{ chief_tenant_assignment.user.email }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h4>Occupants</h4>
+            </div>
+            <div class="card-body">
+                {% if occupants %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Apartment</th>
+                                <th>Chief Tenant</th>
+                                <th>Move-in Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for occupant in occupants %}
+                            <tr>
+                                <td>{{ occupant.full_name }}</td>
+                                <td>{{ occupant.apartment_number }}</td>
+                                <td>
+                                    {% if occupant.is_chief_tenant %}
+                                    <span class="badge bg-success">Yes</span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">No</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ occupant.move_in_date|date:"M d, Y" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    <p>No occupants currently living in this house.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Quick Stats</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total Apartments:</span>
+                        <strong>{{ house.num_apartments }}</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Occupied Units:</span>
+                        <strong>{{ occupants.count }}</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Vacancy Rate:</span>
+                        <strong>
+                            {% widthratio house.num_apartments|sub:occupants.count house.num_apartments 100 %}%
+                        </strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

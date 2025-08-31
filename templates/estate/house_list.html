@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Houses - Real Estate Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">All Houses</h1>
+    </div>
+</div>
+
+<div class="row">
+    {% for house in houses %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">{{ house.house_number }}</h5>
+                <small class="text-muted">{{ house.get_house_type_display }}</small>
+            </div>
+            <div class="card-body">
+                <p><strong>Owner:</strong> {{ house.owner.email }}</p>
+                <p><strong>Apartments:</strong> {{ house.num_apartments }}</p>
+                <p><strong>Occupants:</strong> {{ house.occupants.count }}</p>
+                <a href="{% url 'real_estate_app:house_detail' house.id %}" class="btn btn-primary btn-sm">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">
+            <h4>No houses found</h4>
+            <p>There are currently no houses in the system. Add some houses through the admin panel.</p>
+            <a href="/admin/" class="btn btn-primary">Go to Admin Panel</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Occupants - Real Estate Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">All Occupants</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        {% if occupants %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>House</th>
+                        <th>Apartment</th>
+                        <th>Chief Tenant</th>
+                        <th>Owner</th>
+                        <th>Move-in Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for occupant in occupants %}
+                    <tr>
+                        <td>{{ occupant.full_name }}</td>
+                        <td>
+                            <a href="{% url 'real_estate_app:house_detail' occupant.house.id %}">
+                                {{ occupant.house.house_number }}
+                            </a>
+                        </td>
+                        <td>{{ occupant.apartment_number }}</td>
+                        <td>
+                            {% if occupant.is_chief_tenant %}
+                            <span class="badge bg-success">Yes</span>
+                            {% else %}
+                            <span class="badge bg-secondary">No</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ occupant.house.owner.email }}</td>
+                        <td>{{ occupant.move_in_date|date:"M d, Y" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            <h4>No occupants found</h4>
+            <p>There are currently no occupants in the system. Add some occupants through the admin panel.</p>
+            <a href="/admin/" class="btn btn-primary">Go to Admin Panel</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

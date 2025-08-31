@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Real Estate Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Real Estate Management System</h1>
+        <p class="lead">Welcome to the Real Estate Management System. Manage properties, occupants, and tenant assignments efficiently.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">Total Houses</div>
+            <div class="card-body">
+                <h4 class="card-title">{{ total_houses }}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Total Occupants</div>
+            <div class="card-body">
+                <h4 class="card-title">{{ total_occupants }}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">Property Owners</div>
+            <div class="card-body">
+                <h4 class="card-title">{{ total_owners }}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">Tenants</div>
+            <div class="card-body">
+                <h4 class="card-title">{{ total_tenants }}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <a href="{% url 'real_estate_app:house_list' %}" class="btn btn-primary me-2">View All Houses</a>
+                <a href="{% url 'real_estate_app:occupant_list' %}" class="btn btn-success me-2">View All Occupants</a>
+                <a href="/admin/" class="btn btn-secondary">Admin Panel</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>System Information</h5>
+            </div>
+            <div class="card-body">
+                <p>This system helps manage:</p>
+                <ul>
+                    <li>Property ownership and details</li>
+                    <li>Occupant information and apartment assignments</li>
+                    <li>Chief tenant assignments</li>
+                    <li>User roles and permissions</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
