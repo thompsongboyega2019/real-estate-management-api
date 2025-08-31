@@ -144,12 +144,12 @@ curl http://127.0.0.1:8000/api/houses/
 
 - `requirements.txt` - Python dependencies
 - `manage.py` - Django management script
-- `real_estate_project/settings.py` - Django configuration
-- `real_estate_app/models.py` - Database models (User, House, Occupant, ChiefTenantAssignment)
-- `real_estate_app/serializers.py` - API serializers for data validation and conversion
-- `real_estate_app/views.py` - API views handling HTTP requests
-- `real_estate_app/urls.py` - URL routing for the app
-- `real_estate_app/admin.py` - Admin interface configuration
+- `estate_management/settings.py` - Django configuration
+- `estate/models.py` - Database models (User, House, Occupant, ChiefTenantAssignment)
+- `estate/serializers.py` - API serializers for data validation and conversion
+- `estate/views.py` - API views handling HTTP requests
+- `estate/urls.py` - URL routing for the app
+- `estate/admin.py` - Admin interface configuration
 
 ## Common Commands
 
