@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('estate.urls')),
+    path('api-auth/', include(('rest_framework.urls', 'rest_framework'), namespace='rest_framework')),
 ]
 
 # Serve media files during development

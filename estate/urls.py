@@ -15,10 +15,7 @@ app_name = 'real_estate_app'
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    path('api/auth/', include('estate.auth_urls')),
+    # path('api/auth/', include('estate.auth_urls')),
 ]
 
-# Restore to the standard DRF login/logout inclusion
-urlpatterns += [
-    path('api-auth/', include(('rest_framework.urls', 'rest_framework'), namespace='rest_framework')),
-]
+
