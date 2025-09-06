@@ -118,6 +118,22 @@ class Occupant(models.Model):
     )
     move_in_date = models.DateField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        # Count current occupants for this house
+        current_occupant_count = Occupant.objects.filter(house=self.house).count()
+        # If this is a new occupant (not updating), add 1
+        is_new = self._state.adding
+        if is_new and current_occupant_count >= self.house.num_apartments:
+            raise ValueError(
+                f"Cannot add occupant: House '{self.house}' already has "
+                f"{current_occupant_count} occupants, which is the maximum allowed for {self.house.num_apartments} apartments."
+            )
+        # Log the count (replace with logging if desired)
+        print(
+            f"[LOG] House '{self.house}': {current_occupant_count + (1 if is_new else 0)} occupants / {self.house.num_apartments} apartments"
+        )
+        super().save(*args, **kwargs)
     
     class Meta:
         db_table = 'occupants'
