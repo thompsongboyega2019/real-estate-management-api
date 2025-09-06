@@ -1,28 +1,41 @@
-# Real Estate Management API
+# Real Estate Management System API
 
-A Django REST Framework API for managing real estate properties, users, occupants, and chief tenant assignments.
+A Django REST Framework API for managing residential estate operations, including users, houses, occupants, and chief tenant assignments.
 
-## Project Structure
+## Tech Stack
 
-Based on the ERD, this API manages:
-- **Users**: Property owners and tenants with different roles
-- **Houses**: Properties with details like type, number, and apartment count
-- **Occupants**: People living in the properties
-- **Chief Tenant Assignments**: Special tenant roles for properties
+- **Python 3**
+- **Django 5**
+- **Django REST Framework**
+- **MySQL**
+- **Session Authentication**
+- **Custom User Model with Roles**
 
-## Step-by-Step Setup Guide
+## Features
+
+- **User Role Management:** Admin, Owner (Landlord), and Chief Tenant roles with role-based permissions.
+- **House Management:** Register, update, and manage houses with unique IDs, types, and apartment counts.
+- **Occupant Management:** Add, update, or remove occupants per apartment; enforce max occupants per house.
+- **Chief Tenant Assignment:** Assign and manage chief tenants for each house.
+- **Authentication & Authorization:** Secure registration and login endpoints; session-based authentication.
+- **RESTful API Endpoints:** CRUD for users, houses, occupants, and chief tenant assignments.
+
+## Setup Guide
 
 ### 1. Prerequisites
-Make sure you have Python 3.8+ installed on your system.
 
-### 2. Create Project Directory
-\`\`\`bash
-mkdir real-estate-management-api
+- Python 3.8+
+- MySQL
+
+### 2. Clone the Repository
+
+```bash
+git clone https://github.com/thompsongboyega2019/real-estate-management-api.git
 cd real-estate-management-api
-\`\`\`
+```
 
 ### 3. Create Virtual Environment
-\`\`\`bash
+```bash
 # Create virtual environment
 python -m venv venv
 
@@ -31,32 +44,31 @@ python -m venv venv
 venv\Scripts\activate
 # On macOS/Linux:
 source venv/bin/activate
-\`\`\`
+```
 
 ### 4. Install Dependencies
-\`\`\`bash
+```bash
 pip install -r requirements.txt
-\`\`\`
+```
 
 ### 5. Database Setup
-\`\`\`bash
+```bash
 # Create initial migrations
 python manage.py makemigrations
 
 # Apply migrations to create database tables
 python manage.py migrate
-\`\`\`
+```
 
 ### 6. Create Superuser (Admin Account)
-\`\`\`bash
+```bash
 python manage.py createsuperuser
-\`\`\`
-Follow the prompts to create an admin account.
+```
 
 ### 7. Run Development Server
-\`\`\`bash
+```bash
 python manage.py runserver
-\`\`\`
+```
 
 The API will be available at: `http://127.0.0.1:8000/`
 
@@ -105,36 +117,6 @@ Visit `http://127.0.0.1:8000/admin/` to access the Django admin interface.
 
 ## Testing the API
 
-### Using curl (Command Line)
-
-1. **Create a new user:**
-\`\`\`bash
-curl -X POST http://127.0.0.1:8000/api/users/ \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "john@example.com",
-    "password": "securepassword123",
-    "role": "owner"
-  }'
-\`\`\`
-
-2. **Create a new house:**
-\`\`\`bash
-curl -X POST http://127.0.0.1:8000/api/houses/ \
-  -H "Content-Type: application/json" \
-  -d '{
-    "owner": "user-uuid-here",
-    "house_type": "apartment",
-    "house_number": "A101",
-    "num_apartments": 4
-  }'
-\`\`\`
-
-3. **Get all houses:**
-\`\`\`bash
-curl http://127.0.0.1:8000/api/houses/
-\`\`\`
-
 ### Using the Browsable API
 1. Open `http://127.0.0.1:8000/api/` in your browser
 2. Navigate to any endpoint
@@ -151,24 +133,6 @@ curl http://127.0.0.1:8000/api/houses/
 - `estate/urls.py` - URL routing for the app
 - `estate/admin.py` - Admin interface configuration
 
-## Common Commands
-
-\`\`\`bash
-# Install new package
-pip install package-name
-pip freeze > requirements.txt
-
-# Create new migration after model changes
-python manage.py makemigrations
-
-# Apply migrations
-python manage.py migrate
-
-# Create superuser
-python manage.py createsuperuser
-
-# Run development server
-python manage.py runserver
 
 
 
