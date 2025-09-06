@@ -170,38 +170,11 @@ python manage.py createsuperuser
 # Run development server
 python manage.py runserver
 
-# Run on different port
-python manage.py runserver 8080
 
-# Access Django shell
-python manage.py shell
-\`\`\`
 
-## Troubleshooting
 
-### Common Issues:
 
-1. **Migration errors**: Delete `db.sqlite3` and migration files, then run `makemigrations` and `migrate` again
-2. **Port already in use**: Use `python manage.py runserver 8080` to run on a different port
-3. **Module not found**: Make sure virtual environment is activated and dependencies are installed
 
-### Database Reset:
-\`\`\`bash
-# Delete database and migrations
-rm db.sqlite3
-rm real_estate_app/migrations/0*.py
 
-# Recreate migrations and database
-python manage.py makemigrations
-python manage.py migrate
-python manage.py createsuperuser
-\`\`\`
 
-## Next Steps
 
-1. Add authentication and permissions
-2. Implement filtering and search functionality
-3. Add pagination for large datasets
-4. Create comprehensive tests
-5. Add API documentation with Swagger/OpenAPI
-6. Deploy to production server

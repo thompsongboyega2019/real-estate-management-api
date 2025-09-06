@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "makemigrations for authtoken",
+			"type": "shell",
+			"command": "python manage.py makemigrations authtoken",
+			"group": "build"
+		},
+		{
+			"label": "makemigrations for authtoken",
+			"type": "shell",
+			"command": "python manage.py makemigrations authtoken",
+			"group": "build"
+		},
+		{
+			"label": "migrate for authtoken",
+			"type": "shell",
+			"command": "python manage.py migrate authtoken",
+			"group": "build"
+		}
+	]
+}
