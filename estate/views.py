@@ -2,6 +2,8 @@ from rest_framework import viewsets, status, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from .models import User, House, Occupant, ChiefTenantAssignment
 from .serializers import (
     UserSerializer, UserDetailSerializer,
@@ -242,3 +244,18 @@ class ChiefTenantAssignmentViewSet(viewsets.ModelViewSet):
         
         serializer = self.get_serializer(assignment)
         return Response(serializer.data)
+class LandlordProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        if user.role != 'owner':
+            return Response({'detail': 'Only landlords can access this profile.'}, status=403)
+        houses = user.owned_houses.all()
+        num_houses = houses.count()
+        num_tenants = sum(house.occupants.count() for house in houses)
+        return Response({
+            'landlord': user.email,
+            'number_of_houses': num_houses,
+            'number_of_tenants': num_tenants,
+        })

@@ -75,9 +75,12 @@ The API will be available at: `http://127.0.0.1:8000/`
 ## API Endpoints
 
 ### Authentication
-- `POST /api/auth/login/` - Login user
-- `POST /api/auth/logout/` - Logout user
+- `POST /api-auth/login/` - Login user
+- `POST /api-auth/logout/` - Logout user
 - `POST /api/auth/register/` - Register new user
+
+### Landlord Profile
+- `GET /landlord/profile/` -Landlord Profile
 
 ### Users
 - `GET /api/users/` - List all users
