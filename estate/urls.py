@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import LandlordProfileView
 from . import views
-from . import views_auth
+
 
 
 router = DefaultRouter()
