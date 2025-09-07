@@ -19,6 +19,8 @@ A Django REST Framework API for managing residential estate operations, includin
 - **Chief Tenant Assignment:** Assign and manage chief tenants for each house.
 - **Authentication & Authorization:** Secure registration and login endpoints; session-based authentication.
 - **RESTful API Endpoints:** CRUD for users, houses, occupants, and chief tenant assignments.
+- Administrators can create administrator, landlord, and occupant accounts.
+- Landlords can only create occupant accounts.
 
 ## Setup Guide
 

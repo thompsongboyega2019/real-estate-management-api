@@ -61,6 +61,29 @@ class UserViewSet(viewsets.ModelViewSet):
         houses = House.objects.filter(owner=user)
         serializer = HouseSerializer(houses, many=True)
         return Response(serializer.data)
+    
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        role_to_create = request.data.get('role', 'tenant')
+
+        # Admins can create any user
+        if user.role == 'admin':
+            return super().create(request, *args, **kwargs)
+
+        # Landlords can only create occupants (tenants)
+        if user.role == 'owner':
+            if role_to_create != 'tenant':
+                return Response(
+                    {'detail': 'Landlords can only create occupant accounts.'},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+            return super().create(request, *args, **kwargs)
+
+        # All others forbidden
+        return Response(
+            {'detail': 'You do not have permission to create user accounts.'},
+            status=status.HTTP_403_FORBIDDEN
+        )
 
 
 class HouseViewSet(viewsets.ModelViewSet):
