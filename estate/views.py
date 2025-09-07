@@ -252,10 +252,27 @@ class LandlordProfileView(APIView):
         if user.role != 'owner':
             return Response({'detail': 'Only landlords can access this profile.'}, status=403)
         houses = user.owned_houses.all()
-        num_houses = houses.count()
-        num_tenants = sum(house.occupants.count() for house in houses)
+        house_list = []
+        for house in houses:
+            occupants = house.occupants.all()
+            house_list.append({
+                'house_id': str(house.id),
+                'house_number': house.house_number,
+                'house_type': house.house_type,
+                'num_apartments': house.num_apartments,
+                'num_occupants': occupants.count(),
+                'occupants': [
+                    {
+                        'id': occupant.id,
+                        'full_name': occupant.full_name,
+                        'apartment_number': occupant.apartment_number,
+                        'is_chief_tenant': occupant.is_chief_tenant
+                    }
+                    for occupant in occupants
+                ]
+            })
         return Response({
             'landlord': user.email,
-            'number_of_houses': num_houses,
-            'number_of_tenants': num_tenants,
+            'number_of_houses': houses.count(),
+            'houses': house_list
         })
